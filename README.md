@@ -11,10 +11,12 @@ La interfaz toma Carbon como framework base: shell oscuro para navegacion, super
 ### Estructura
 
 - `Header`: barra superior persistente con marca, sucursal y acciones globales.
-- `SideNav`: navegacion principal en tema `g100`, icono mas texto y estado activo visible.
+- `Header`: incluye selector real de sucursal con `Sucursal Centro`, `Tocancipa` y `Cajica`; las acciones globales abren paneles breves.
+- `SideNav`: navegacion principal en tema `g100`, icono mas texto en modo expandido y solo iconos en modo compacto.
 - `Content`: area clara `#f4f4f4`, con `Tile` blancos para KPIs, graficas, tablas y formularios.
 - Reticula: separaciones de 16 px entre bloques y 32 px para respiracion de pagina.
 - Confirmaciones destructivas: se usan `Modal danger` de Carbon, con fondo atenuado, en lugar de `alert` o `confirm`.
+- Sucursal activa: el contexto de datos filtra clientes, compras y mensajes por sucursal.
 
 ### Componentes Carbon usados
 
@@ -44,7 +46,7 @@ Tokens principales:
 - `--ocd-type-label-01`, `--ocd-type-helper-01`, `--ocd-type-body-compact-01`, `--ocd-type-body-01`, `--ocd-type-heading-01`, `--ocd-type-heading-03`, `--ocd-type-heading-05`: escala tipografica Carbon aplicada a labels, ayudas, cuerpo, encabezados y titulos.
 - `--ocd-layer`, `--ocd-layer-accent`, `--ocd-layer-hover`, `--ocd-background`: superficies reutilizadas en `Tile`, tablas, filas expandidas y fondos.
 
-Componentes afectados por tokens: `Header`, `SideNav`, `Content`, `Tile`, `DataTable`, `Search`, `DatePicker`, `Tag`, `Button`, `Pagination`, paneles de edicion, detalle CRM, tarjetas KPI y graficas.
+Componentes afectados por tokens: `Header`, `SideNav`, `Content`, selector de sucursal, paneles del header, `Tile`, `DataTable`, `Search`, `DatePicker`, `Tag`, `Button`, `Pagination`, paneles de edicion, detalle CRM, tarjetas KPI, WhatsApp y graficas.
 
 ### Colores base
 
@@ -112,8 +114,9 @@ Esto evita una lectura tipo arcoiris y mantiene coherencia IBM.
 - Componentes: `DatePicker`, `Dropdown`, `Button`, `Tile`, `DataTable`, `Search`, `Tag`.
 - KPIs: ingresos totales, clientes base, ticket promedio y clientes VIP.
 - Graficas: area de ingresos, barras de lentes, barras de monturas y tortas de segmentos usando azules Carbon.
+- La distribucion por lente excluye `Ninguno` y el top de monturas excluye productos de contacto.
 - Etiquetas: las barras muestran valores a la derecha; las tortas muestran nombre y porcentaje.
-- Filtros funcionales: el rango de fechas recalcula KPIs, graficas y tabla; `Limpiar filtros` limpia busqueda y fechas.
+- Filtros funcionales: sucursal activa, rango de fechas y busqueda recalculan KPIs, graficas y tabla; `Limpiar filtros` limpia busqueda y fechas.
 - Reporte funcional: `Exportar reporte` descarga un CSV con fecha, cliente, producto, lente, monto y segmento filtrado.
 
 ### Anadir compra
@@ -121,8 +124,9 @@ Esto evita una lectura tipo arcoiris y mantiene coherencia IBM.
 - Titulo: "Anadir compra".
 - Componentes: `TextInput`, `TextArea`, `Button`, `Tile`, `InlineNotification`.
 - Permite agregar varios elementos a una misma compra: producto, tipo de lente y costo por fila.
+- El catalogo evita `Ninguno` como tipo de lente y no usa contactos dentro de monturas.
 - El total se calcula automaticamente y el cliente se crea o actualiza por cedula/nombre.
-- La segmentacion se recalcula segun numero de compras: Normal, Fiel o VIP.
+- La compra se registra en la sucursal activa y la segmentacion se recalcula segun numero de compras: Normal, Fiel o VIP.
 
 ### CRM y campanas
 
@@ -136,6 +140,16 @@ Esto evita una lectura tipo arcoiris y mantiene coherencia IBM.
 - Mensajes predeterminados: seguimiento, revision prioritaria y renovacion.
 - Inputs variables: beneficio/accion, vigencia y asesor/sede; la vista previa se genera automaticamente por cliente.
 - Envio funcional: crea mensajes enviados en la base local de WhatsApp.
+- Los clientes disponibles pertenecen a la sucursal activa.
+
+### WhatsApp Empresa
+
+- Titulo: "WhatsApp Empresa".
+- Componentes: `Search`, `Select`, `TextArea`, `Button`, `Tile`, `InlineNotification`.
+- Muestra conversaciones filtradas por sucursal.
+- Permite buscar por cliente o texto del mensaje.
+- Permite seleccionar cliente de la sucursal activa, editar una plantilla con `{nombre}` y enviar mensajes reales al contexto local.
+- Diferencia mensajes enviados y recibidos con bordes semanticos Carbon.
 
 ### Gestion de clientes
 
@@ -158,8 +172,8 @@ Esto evita una lectura tipo arcoiris y mantiene coherencia IBM.
 ## Datos y persistencia
 
 - La base local se genera con datos sinteticos enriquecidos: alrededor de 140 clientes, compras distribuidas durante el ano, varios productos, tipos de lente y comentarios.
-- Persistencia en `localStorage` versionada con claves `opticalia_purchases_v6` y `opticalia_clients_v6`.
-- Las funciones de agregar, editar, eliminar, filtrar, exportar y enviar campanas actualizan datos reales del contexto local.
+- Persistencia en `localStorage` versionada con claves `opticalia_purchases_v7`, `opticalia_clients_v7` y `opticalia_whatsapp_v7`.
+- Las funciones de agregar, editar, eliminar, filtrar por sucursal, exportar, enviar campanas y enviar WhatsApp actualizan datos reales del contexto local.
 
 ## Ejecucion
 

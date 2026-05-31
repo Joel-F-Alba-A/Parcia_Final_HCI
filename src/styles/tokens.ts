@@ -1,0 +1,37 @@
+export const colorTokens = {
+  gray100: '#161616',
+  gray90: '#262626',
+  gray80: '#393939',
+  gray70: '#525252',
+  gray60: '#6f6f6f',
+  gray50: '#8d8d8d',
+  gray30: '#c6c6c6',
+  gray20: '#e0e0e0',
+  gray10: '#f4f4f4',
+  white: '#ffffff',
+  blue90: '#001d6c',
+  blue80: '#002d9c',
+  blue70: '#0043ce',
+  blue60: '#0f62fe',
+  blue50: '#4589ff',
+  blue40: '#78a9ff',
+  blue30: '#a6c8ff',
+  blue20: '#d0e2ff',
+  green60: '#24a148',
+  yellow30: '#f1c21b',
+  red60: '#da1e28',
+} as const;
+
+export const chartTokens = {
+  blueSeries: [
+    colorTokens.blue90,
+    colorTokens.blue80,
+    colorTokens.blue70,
+    colorTokens.blue60,
+    colorTokens.blue50,
+    colorTokens.blue40,
+    colorTokens.blue30,
+    colorTokens.blue20,
+  ],
+  segmentSeries: [colorTokens.blue90, colorTokens.blue70, colorTokens.blue60],
+} as const;
