@@ -154,8 +154,23 @@ select {
 }
 
 .carbon-sidenav--collapsed .cds--side-nav__link {
+  display: flex;
   justify-content: center;
   padding-inline: 0;
+}
+
+.carbon-sidenav--collapsed .cds--side-nav__icon {
+  position: static;
+  flex: 0 0 auto;
+  margin: 0;
+  inline-size: 3rem;
+  min-inline-size: 3rem;
+  display: grid;
+  place-items: center;
+}
+
+.carbon-sidenav--collapsed .cds--side-nav__icon > svg {
+  margin: 0;
 }
 
 .carbon-sidenav--collapsed .cds--side-nav__link-text {
